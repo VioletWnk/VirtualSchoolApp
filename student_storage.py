@@ -1,18 +1,20 @@
 from storage import Storage
 from school_storage import SchoolStorage
 from student import Student
+from validate import Validate
 
 
 class StudentStorage(Storage):
     def __init__(self, file_name='student_storage.json'):
         super().__init__(file_name)
         self.school_storage = SchoolStorage()
+        self.validate = Validate()
 
     def add(self):
         school_id = self.get_school_id()
-        student_name = input('Введите ФИО:')
-        student_age = input('Введите возраст:')
-        student_course = input('Введите класс:')
+        student_name = self.validate.get_str('Введите ФИО')
+        student_age = self.validate.get_int('Введите возраст')
+        student_course = self.validate.get_int('Введите класс')
         student_id = self.generate_id()
 
         students = self.get_data()
@@ -28,7 +30,7 @@ class StudentStorage(Storage):
 
     def remove(self):
         self.get()
-        student_id = int(input('\nВведите номер ученика, которого хотите удалить: '))
+        student_id = self.validate.get_int('\nВведите номер ученика, которого хотите удалить')
         self.remove_data(student_id)
 
     def get(self):
@@ -37,5 +39,5 @@ class StudentStorage(Storage):
 
     def get_school_id(self):
         self.school_storage.show()
-        school_id = int(input('\nВведите номер школы, чтобы просмотреть учеников: '))
+        school_id = self.validate.get_int('\nВведите номер школы, чтобы просмотреть учеников')
         return school_id

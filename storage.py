@@ -7,16 +7,16 @@ class Storage:
         self.file_handler = FileHandler()
         self.path = self.file_handler.get_file_path(file_name)
 
-    def save_data(self, schools):
-        json_data = jsonpickle.encode(schools)
+    def save_data(self, file):
+        json_data = jsonpickle.encode(file)
         self.file_handler.write(self.path, json_data)
 
-    def update_data(self, school):
-        schools = self.get_data()
+    def update_data(self, item):
+        data = self.get_data()
         updated_list = []
-        for i in schools:
-            if i.id == school.id:
-                updated_list.append(school)
+        for i in data:
+            if i.id == item.id:
+                updated_list.append(item)
             else:
                 updated_list.append(i)
         self.save_data(updated_list)
@@ -40,16 +40,16 @@ class Storage:
         return items
 
     def generate_id(self):
-        schools = self.get_data()
-        if len(schools) == 0:
+        data = self.get_data()
+        if len(data) == 0:
             id = 1
         else:
-            school = schools[-1]
-            id = school.id + 1
+            item = data[-1]
+            id = item.id + 1
         return id
 
     def get_by_id(self, id):
-        schools = self.get_data()
-        for school in schools:
-            if school.id == id:
-                return school
+        data = self.get_data()
+        for item in data:
+            if item.id == id:
+                return item

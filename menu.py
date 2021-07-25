@@ -1,3 +1,6 @@
+from validate import Validate
+
+
 class Menu:
     ITEM_ADD_SCHOOL = 1
     ITEM_GET_SCHOOL = 2
@@ -8,12 +11,11 @@ class Menu:
     ITEM_EXIT = 7
 
     def __init__(self):
-        pass
+        self.validate = Validate()
 
     def main_menu(self):
         self.show_menu()
-        item = input(f'Выберите пункт меню: ')
-        return int(item)
+        return self.validate.get_int('Выберите пункт меню')
 
     def show_menu(self):
         list = [

@@ -2,6 +2,7 @@ import os
 import pathlib
 from pathlib import Path
 
+
 class FileHandler:
     def get_file_path(self, file_name):
         dir_path = pathlib.Path.cwd()
