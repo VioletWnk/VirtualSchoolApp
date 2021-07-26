@@ -24,8 +24,11 @@ class SchoolService:
         self.show()
         school_id = self.validate.get_int('Введите номер школы, чтобы получить информацию')
         school = self.school_storage.get_by_id(school_id)
-        students_num = self.count_students(school_id)
-        print(f'\nНазвание школы: {school.name}\nАдрес школы: {school.address}\nКоличество учеников:{students_num}\n\n')
+        if school is None:
+            print('Такой школы нет')
+        else:
+            students_num = self.count_students(school_id)
+            print(f'\nНазвание школы: {school.name}\nАдрес школы: {school.address}\nКоличество учеников:{students_num}\n\n')
 
     def update(self):
         self.show()
