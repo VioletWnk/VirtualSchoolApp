@@ -34,15 +34,17 @@ class SchoolService:
         self.show()
         school_id = self.validate.get_int('Введите номер школы, чтобы изменить информацию')
         school = self.school_storage.get_by_id(school_id)
+        if school is None:
+            print('Такой школы нет')
+        else:
+            school_name = input('Введите название (нажмите enter, чтобы пропустить этот шаг): ')
+            if school_name != '':
+                school.name = school_name
+            school_address = input('Введите новый адрес (нажмите enter, чтобы пропустить этот шаг): ')
+            if school_address != '':
+                school.address = school_address
 
-        school_name = input('Введите название (нажмите enter, чтобы пропустить этот шаг): ')
-        if school_name != '':
-            school.name = school_name
-        school_address = input('Введите новый адрес (нажмите enter, чтобы пропустить этот шаг): ')
-        if school_address != '':
-            school.address = school_address
-
-        self.school_storage.update_data(school)
+            self.school_storage.update_data(school)
 
     def show(self):
         school_data = self.school_storage.get_data()
